@@ -11,22 +11,22 @@ public class Wander : State
 
     public override void Enter()
     {
-        _currentWaypoint = fsmai.waypoints[Random.Range(0, fsmai.waypoints.Count)];
-        Debug.Log(_currentWaypoint.gameObject.name);
+        _currentWaypoint = GetRandomWaypoint();
     }
 
     public override void Execute()
     {
         fsmai.Agent.SetDestination(_currentWaypoint.position);
-        float distance = Vector3.Distance(_currentWaypoint.position, fsmai.transform.position);
-        if (distance < 0.5f)
-        {
-            Debug.Log("change");
-            _currentWaypoint = fsmai.waypoints[Random.Range(0, fsmai.waypoints.Count)];
-        }
+        if (Vector3.Distance(_currentWaypoint.position, fsmai.transform.position) < fsmai.PointDistanceThreshold) 
+            _currentWaypoint = GetRandomWaypoint();
     }
 
     public override void Exit()
     {
+    }
+    
+    public Transform GetRandomWaypoint()
+    {
+        return fsmai.Waypoints[Random.Range(0, fsmai.Waypoints.Count)];
     }
 }
