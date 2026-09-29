@@ -10,7 +10,9 @@ public class Chase : State
     public override void Enter()
     {
         if (fsmai.ChaseColliderDetection.IsAnyoneDetected())
+        {
             _target = fsmai.ChaseColliderDetection.GetNeerestCollider(fsmai.transform.position).transform;
+        }
     }
 
     public override void Execute()

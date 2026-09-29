@@ -1,5 +1,75 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &819070564088702358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1437105419208910114}
+  - component: {fileID: 2659127364775481312}
+  - component: {fileID: 8855795519399715857}
+  m_Layer: 0
+  m_Name: AttackColliderDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1437105419208910114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819070564088702358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6301562687333517906}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2659127364775481312
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819070564088702358}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8855795519399715857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819070564088702358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2dfff1aef6bd146862fb6e4c0c73b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _requiresVisible: 0
+  _tag: Player
+  _detectedColliders: []
+  _detectedHiddenColliders: []
 --- !u!1 &1853249996215478057
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +82,7 @@ GameObject:
   - component: {fileID: 2364491399936390394}
   - component: {fileID: 640920563039914688}
   m_Layer: 0
-  m_Name: EnemyColider
+  m_Name: ChaseColliderDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,6 +175,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6565011026846747173}
+  - {fileID: 1437105419208910114}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &3731041850803706270
@@ -233,5 +304,10 @@ MonoBehaviour:
   - {fileID: 0}
   _agent: {fileID: 3731041850803706270}
   _defaultState: 0
-  _tagDetection: {fileID: 640920563039914688}
   _pointDistanceThreshold: 0.5
+  _chaseColliderDetection: {fileID: 640920563039914688}
+  _attackColliderDetection: {fileID: 8855795519399715857}
+  _damage: 67
+  _attackCooldown: 2
+  _rangedAttackThreshold: 5
+  _rangeAttackPrefab: {fileID: 26351186227426857, guid: d71ce271433feff45a8b52e186ff1d49, type: 3}

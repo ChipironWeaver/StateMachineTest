@@ -10,18 +10,32 @@ public class FSMAI : MonoBehaviour
     [SerializeField] private List<Transform> _waypoints;
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private StateEnum _defaultState;
+
+    [Header("Wander")] 
     
-    
-    [Header("Wander")]
     [SerializeField] private float _pointDistanceThreshold;
     
     [Header("Chase")] 
     [SerializeField] private TagDetectionTrigger _chaseColliderDetection;
     
+    [Header("Attack")]
+    [SerializeField] private TagDetectionTrigger _attackColliderDetection;
+
+    [SerializeField] private float _damage;
+    [SerializeField] private float _attackCooldown;
+    [SerializeField] private float _rangedAttackThreshold;
+
+    [SerializeField] private GameObject _rangeAttackPrefab;
+    
     public NavMeshAgent Agent => _agent;
     public List<Transform> Waypoints => _waypoints;
     public float PointDistanceThreshold => _pointDistanceThreshold;
     public TagDetectionTrigger ChaseColliderDetection => _chaseColliderDetection;
+    public float Damage => _damage;
+    public float RangedAttackThreshold => _rangedAttackThreshold;
+    public float AttackCooldown => _attackCooldown;
+    
+    
     
     private State _currentState;
     
@@ -37,12 +51,29 @@ public class FSMAI : MonoBehaviour
         {
             SwitchState(new Chase(this));
         }
-        if (_currentState is Chase && !_chaseColliderDetection.IsAnyoneDetected())
+        if (_currentState is Attack && !_chaseColliderDetection.IsAnyoneDetected())
+        {
+            SwitchState(new Wander(this));
+        }
+        else if (_currentState is Chase && _attackColliderDetection.IsAnyoneDetected())
+        {
+            SwitchState(new Attack(this));
+        }
+        else if (_currentState is Chase && !_chaseColliderDetection.IsAnyoneDetected())
         {
             SwitchState(new Wander(this));
         }
     }
-    
+
+    public void LaunchRangeAttack()
+    {
+        Vector3 direction = _agent.destination - transform.position;
+        direction.Normalize();
+        direction *= 500;
+        GameObject projectile = Instantiate(_rangeAttackPrefab);
+        projectile.transform.position = transform.position;
+        projectile.GetComponent<Rigidbody>().AddForce(direction, ForceMode.Impulse);
+    }
     
     private void SwitchState(State newState)
     {
@@ -59,6 +90,8 @@ public class FSMAI : MonoBehaviour
                 return new Wander(this);
             case StateEnum.Chase:
                 return new Chase(this);
+            case StateEnum.Attack:
+                return new Attack(this);
             default:
                 Debug.LogWarning("State " + state.ToString() + " not implemented");
                 return null;
@@ -68,7 +101,8 @@ public class FSMAI : MonoBehaviour
     private enum StateEnum
     {
         Wander,
-        Chase
+        Chase,
+        Attack
     }
 
     

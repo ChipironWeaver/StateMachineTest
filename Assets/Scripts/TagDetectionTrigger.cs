@@ -7,8 +7,8 @@ public class TagDetectionTrigger : MonoBehaviour
 {
     [SerializeField] private bool _requiresVisible;
     [SerializeField,Tag] private string _tag;
-    [SerializeField,ReadOnly] private List<Collider> _detectedColliders;
-    [SerializeField,ReadOnly] private List<Collider> _detectedHiddenColliders;
+    [SerializeField,ReadOnly] private List<Collider> _detectedColliders =  new List<Collider>();
+    [SerializeField,ReadOnly] private List<Collider> _detectedHiddenColliders =  new List<Collider>();
 
     private void Update()
     {
