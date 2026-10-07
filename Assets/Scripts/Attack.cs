@@ -37,7 +37,7 @@ public class Attack : State
         }
         else
         {
-            Debug.Log("Close Attack");
+            fsmai.LaunchAttack();
         }
     }
 

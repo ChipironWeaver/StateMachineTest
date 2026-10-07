@@ -20,7 +20,8 @@ public class FSMAI : MonoBehaviour
     
     [Header("Attack")]
     [SerializeField] private TagDetectionTrigger _attackColliderDetection;
-
+    [SerializeField] private Rigidbody _rigidbody;
+    
     [SerializeField] private float _damage;
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _rangedAttackThreshold;
@@ -73,6 +74,11 @@ public class FSMAI : MonoBehaviour
         GameObject projectile = Instantiate(_rangeAttackPrefab);
         projectile.transform.position = transform.position;
         projectile.GetComponent<Rigidbody>().AddForce(direction, ForceMode.Impulse);
+    }
+
+    public void LaunchAttack()
+    {
+        Debug.Log("im attacking close");
     }
     
     private void SwitchState(State newState)
